@@ -11,15 +11,22 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
-                <div class="logo">
-                    <img src="assets/images/aster-logo-main.png" alt="ASTER Group Home Logo">
-                    <div>
-                        <h1 style="margin: 0;">Aster Group Home</h1>
-                        <p class="tagline" style="margin: 0;">Bachelor's House-Call Assisted Living</p>
+            <div class="navbar-header">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
+                    <div class="logo">
+                        <img src="assets/images/aster-logo-main.png" alt="ASTER Group Home Logo">
+                        <div>
+                            <h1 style="margin: 0;">Aster Group Home</h1>
+                            <p class="tagline" style="margin: 0;">Bachelor's House-Call Assisted Living</p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
@@ -207,6 +214,29 @@
         </div>
     </footer>
 
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
 

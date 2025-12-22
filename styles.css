@@ -425,6 +425,86 @@ section {
     margin-top: 2rem;
 }
 
+/* ===== Home Environment Section ===== */
+.home-environment-section {
+    background-color: var(--warm-beige);
+    padding: 4rem 0;
+}
+
+.environment-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--white);
+    padding: 0.5rem;
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(44, 95, 124, 0) 0%, rgba(44, 95, 124, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(44, 95, 124, 0.25);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* Enhanced gallery with overlay effect */
+.gallery-item {
+    height: 350px;
+}
+
+@media (min-width: 1024px) {
+    .environment-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4) {
+        grid-row: span 1;
+    }
+    
+    .gallery-item:nth-child(2),
+    .gallery-item:nth-child(3) {
+        grid-row: span 1;
+    }
+}
+
 /* ===== Page Header ===== */
 .page-header {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
@@ -1427,6 +1507,7 @@ img {
     .benefits-grid,
     .values-grid,
     .environment-features,
+    .environment-gallery,
     .reasons-list,
     .process-steps,
     .philosophy-content,
@@ -1532,6 +1613,15 @@ img {
     .approach-item img {
         width: 100%;
         margin-bottom: 1rem;
+    }
+
+    /* Home Environment Gallery */
+    .environment-gallery {
+        gap: 1.5rem;
+    }
+
+    .gallery-item {
+        height: 280px;
     }
 
     /* Footer */
@@ -1652,6 +1742,11 @@ img {
     .approach-item,
     .philosophy-block {
         padding: 1.5rem;
+    }
+
+    /* Home Environment Gallery */
+    .gallery-item {
+        height: 220px;
     }
 
     /* Contact */

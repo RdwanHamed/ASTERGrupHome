@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admission Form - Aster Group Home - Complete the admission form to begin the process.">
+    <title>Admission Form - Aster Group Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admission-form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .admission-form-title {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        .admission-form-description {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .admission-date-field {
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+        .admission-date-field label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-right: 1rem;
+        }
+        .admission-date-inputs {
+            display: inline-flex;
+            gap: 0.5rem;
+        }
+        .admission-date-inputs input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid var(--primary-color);
+            padding: 0.25rem;
+            font-size: 1rem;
+        }
+        .admission-date-inputs input[readonly] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            color: var(--text-dark);
+        }
+        .admission-section {
+            margin-bottom: 2.5rem;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        .admission-section-title {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--success-color);
+        }
+        .admission-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .admission-form-group {
+            margin-bottom: 1.5rem;
+        }
+        .admission-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .admission-form-group input,
+        .admission-form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: var(--font-secondary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .admission-form-group input:focus,
+        .admission-form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .admission-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .admission-radio-group {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+        .admission-radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .admission-radio-group input[type="radio"] {
+            width: auto;
+        }
+        .admission-form-submit {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .admission-form-submit button {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+        }
+        .form-message {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Responsive Styles for Admission Form */
+        @media (max-width: 768px) {
+            .admission-form-container {
+                padding: 1.5rem 1rem;
+            }
+            .admission-form-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .admission-form-group.full-width {
+                grid-column: 1;
+            }
+            .admission-date-field {
+                text-align: left;
+                margin-bottom: 1.5rem;
+            }
+            .admission-date-inputs {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                margin-top: 0.5rem;
+            }
+            .admission-date-inputs input {
+                width: 60px;
+                flex: 0 0 auto;
+            }
+            .admission-radio-group {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .admission-radio-group label {
+                width: 100%;
+            }
+            .admission-form-submit button {
+                width: 100%;
+                padding: 1rem 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admission-form-container {
+                padding: 1rem 0.75rem;
+            }
+            .admission-form-title {
+                font-size: 1.5rem;
+            }
+            .admission-section-title {
+                font-size: 1.1rem;
+            }
+            .admission-form-group input,
+            .admission-form-group select {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            .admission-date-inputs input {
+                width: 55px;
+                font-size: 16px;
+            }
+            .admission-form-submit button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .admission-form-container {
+                padding: 0.75rem 0.5rem;
+            }
+            .admission-date-inputs {
+                gap: 0.25rem;
+            }
+            .admission-date-inputs input {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
+                <div class="logo">
+                    <img src="assets/images/aster-logo-main.png" alt="ASTER Group Home Logo">
+                    <div>
+                        <h1 style="margin: 0;">Aster Group Home</h1>
+                        <p class="tagline" style="margin: 0;">Bachelor's House-Call Assisted Living</p>
+                    </div>
+                </div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services & Activities</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="environment.html" class="active">Admission</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admission Form -->
+    <section class="content-section">
+        <div class="container">
+            <div class="admission-form-container">
+                <h1 class="admission-form-title">Admission Form</h1>
+                <p class="admission-form-description">This form collects personal, medical, and legal information required for admission to the facility.</p>
+                
+                <!-- Success/Error Messages -->
+                <div id="form-message" class="form-message" style="display: none;"></div>
+                
+                <form action="environment-handler.php" method="POST" id="admissionForm">
+                    <!-- Date of Admission -->
+                    <div class="admission-date-field">
+                        <label>DATE OF ADMISSION:</label>
+                        <div class="admission-date-inputs">
+                            <input type="text" id="admission_day" name="admission_day" placeholder="DD" maxlength="2" pattern="[0-9]{1,2}" required readonly>
+                            <span>/</span>
+                            <input type="text" id="admission_month" name="admission_month" placeholder="MM" maxlength="2" pattern="[0-9]{1,2}" required readonly>
+                            <span>/</span>
+                            <input type="text" id="admission_year" name="admission_year" placeholder="YYYY" maxlength="4" pattern="[0-9]{4}" required readonly>
+                        </div>
+                    </div>
+
+                    <!-- Section 1: Personal Information -->
+                    <div class="admission-section">
+                        <h3 class="admission-section-title">PERSONAL INFORMATION</h3>
+                        <div class="admission-form-grid">
+                            <div class="admission-form-group">
+                                <label for="full_name">Full Name *</label>
+                                <input type="text" id="full_name" name="full_name" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="nickname">Nickname</label>
+                                <input type="text" id="nickname" name="nickname">
+                            </div>
+                            <div class="admission-form-group">
+                                <label>Date of Birth *</label>
+                                <div class="admission-date-inputs" style="justify-content: flex-start;">
+                                    <input type="text" name="birth_day" placeholder="DD" maxlength="2" pattern="[0-9]{1,2}" required>
+                                    <span>/</span>
+                                    <input type="text" name="birth_month" placeholder="MM" maxlength="2" pattern="[0-9]{1,2}" required>
+                                    <span>/</span>
+                                    <input type="text" name="birth_year" placeholder="YYYY" maxlength="4" pattern="[0-9]{4}" required>
+                                </div>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label>Gender *</label>
+                                <div class="admission-radio-group">
+                                    <label><input type="radio" name="gender" value="Male" required> Male</label>
+                                    <label><input type="radio" name="gender" value="Female" required> Female</label>
+                                    <label><input type="radio" name="gender" value="Other" required> Other</label>
+                                </div>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="country">Country *</label>
+                                <input type="text" id="country" name="country" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Full Residential Address -->
+                    <div class="admission-section">
+                        <h3 class="admission-section-title">FULL RESIDENTIAL ADDRESS</h3>
+                        <div class="admission-form-grid">
+                            <div class="admission-form-group">
+                                <label for="place_of_birth">Place Of Birth *</label>
+                                <input type="text" id="place_of_birth" name="place_of_birth" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="nationality">Nationality *</label>
+                                <input type="text" id="nationality" name="nationality" required>
+                            </div>
+                            <div class="admission-form-group full-width">
+                                <label for="address">Address *</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="city">The City *</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="zip_code">Zip Code *</label>
+                                <input type="text" id="zip_code" name="zip_code" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="present_state">Present State *</label>
+                                <input type="text" id="present_state" name="present_state" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="ssn">Social Security Number</label>
+                                <input type="text" id="ssn" name="ssn">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Emergency Contact Information -->
+                    <div class="admission-section">
+                        <h3 class="admission-section-title">EMERGENCY CONTACT INFORMATION</h3>
+                        <div class="admission-form-grid">
+                            <div class="admission-form-group">
+                                <label for="emergency_name">Name *</label>
+                                <input type="text" id="emergency_name" name="emergency_name" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="emergency_phone">Phone *</label>
+                                <input type="tel" id="emergency_phone" name="emergency_phone" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="emergency_relationship">Relationship to Patient *</label>
+                                <input type="text" id="emergency_relationship" name="emergency_relationship" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="emergency_address">Address *</label>
+                                <input type="text" id="emergency_address" name="emergency_address" required>
+                            </div>
+                            <div class="admission-form-group full-width">
+                                <label for="emergency_address2">Address (Line 2)</label>
+                                <input type="text" id="emergency_address2" name="emergency_address2">
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="emergency_alternate_phone">Alternate Phone</label>
+                                <input type="tel" id="emergency_alternate_phone" name="emergency_alternate_phone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Primary Care Physician -->
+                    <div class="admission-section">
+                        <h3 class="admission-section-title">PRIMARY CARE PHYSICIAN</h3>
+                        <div class="admission-form-grid">
+                            <div class="admission-form-group">
+                                <label for="physician_name">Name *</label>
+                                <input type="text" id="physician_name" name="physician_name" required>
+                            </div>
+                            <div class="admission-form-group">
+                                <label for="physician_phone">Phone *</label>
+                                <input type="tel" id="physician_phone" name="physician_phone" required>
+                            </div>
+                            <div class="admission-form-group full-width">
+                                <label for="physician_clinic">Clinic/Hospital *</label>
+                                <input type="text" id="physician_clinic" name="physician_clinic" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="admission-form-submit">
+                        <button type="submit" class="btn btn-primary btn-large">Submit Admission Form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="assets/images/aster-logo-main.png" alt="ASTER Group Home Logo" style="height: 80px; width: auto; margin-bottom: 1rem; filter: brightness(0) invert(1);">
+                    <h3>Aster Group Home</h3>
+                    <p>Bachelor's House-Call Assisted Living</p>
+                    <p class="footer-tagline">Compassionate Care in Every Moment</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Phone: <a href="tel:+12408338151">(240) 833-8151</a></p>
+                    <p>Email: <a href="mailto:aster.grouphome@outlook.com">aster.grouphome@outlook.com</a></p>
+                    <p>Address: <a href="https://www.google.com/maps?q=15125+Manor+Lake+Dr,+Rockville,+MD+20853" target="_blank" rel="noopener noreferrer">15125 Manor Lake Dr, Rockville, MD 20853</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services & Activities</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="environment.html">Admission</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Aster Group Home. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for form messages and auto-fill date -->
+    <script>
+        // Auto-fill current date for admission date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            
+            const admissionDay = document.getElementById('admission_day');
+            const admissionMonth = document.getElementById('admission_month');
+            const admissionYear = document.getElementById('admission_year');
+            
+            if (admissionDay && !admissionDay.value) {
+                admissionDay.value = day;
+            }
+            if (admissionMonth && !admissionMonth.value) {
+                admissionMonth.value = month;
+            }
+            if (admissionYear && !admissionYear.value) {
+                admissionYear.value = year;
+            }
+        });
+        
+        // Check for success or error messages in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const error = urlParams.get('error');
+        
+        const messageDiv = document.getElementById('form-message');
+        
+        if (success === '1') {
+            messageDiv.className = 'form-message form-message-success';
+            messageDiv.innerHTML = '<strong>Thank you!</strong> Your admission form has been submitted successfully. We\'ll review it and get back to you as soon as possible.';
+            messageDiv.style.display = 'block';
+            // Clear form
+            const form = document.getElementById('admissionForm');
+            if (form) {
+                form.reset();
+                // Re-fill the admission date after reset
+                const today = new Date();
+                const day = String(today.getDate()).padStart(2, '0');
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const year = today.getFullYear();
+                document.getElementById('admission_day').value = day;
+                document.getElementById('admission_month').value = month;
+                document.getElementById('admission_year').value = year;
+            }
+            // Remove success parameter from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else if (error) {
+            messageDiv.className = 'form-message form-message-error';
+            messageDiv.innerHTML = '<strong>Error:</strong> ' + decodeURIComponent(error);
+            messageDiv.style.display = 'block';
+            // Remove error parameter from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
+</body>
+</html>
+
+
+
+

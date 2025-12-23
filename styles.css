@@ -102,6 +102,10 @@ a:hover {
     width: 100%;
 }
 
+.navbar .container {
+    padding-left: 0;
+}
+
 /* ===== Navigation ===== */
 .navbar {
     background-color: var(--primary-dark);
@@ -133,7 +137,8 @@ a:hover {
     align-items: center;
     flex: 0 0 auto;
     margin-left: 0;
-    padding-left: 40px;
+    padding-left: 0;
+    margin-right: auto;
 }
 
 .navbar .container > a,
@@ -215,11 +220,10 @@ a:hover {
     list-style: none;
     gap: 1.5rem;
     flex-wrap: wrap;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    margin-right: -40px;
-    padding-right: 20px;
     flex: 0 0 auto;
+    justify-content: center;
 }
 
 .nav-menu a {
@@ -490,7 +494,7 @@ section {
 
 .gallery-item {
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 8px 30px var(--shadow-light);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1401,6 +1405,33 @@ img {
 .pillar-card img,
 .feature-item img {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Ensure images fit properly in their containers */
+.pillar-card img,
+.approach-item img,
+.philosophy-block img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.feature-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.approach-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
 }
 
 .activity-content img:hover,
@@ -1511,6 +1542,13 @@ img {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-left: 0;
+        padding-left: 0;
+    }
+    
+    .navbar-header .logo {
+        margin-left: 0;
+        padding-left: 0;
     }
 
     .navbar-header > a {
@@ -1529,6 +1567,7 @@ img {
         width: 100%;
         margin-top: 0;
         padding-top: 0;
+        padding-left: 0;
         border-top: none;
         max-height: 0;
         overflow: hidden;
@@ -1539,12 +1578,17 @@ img {
         display: flex;
         max-height: 500px;
         padding-top: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
         margin-top: 0.5rem;
         border-top: 1px solid var(--border-color);
+        align-items: center;
+        justify-content: center;
     }
 
     .nav-menu li {
         width: 100%;
+        text-align: center;
     }
 
     .nav-menu a {
@@ -1552,6 +1596,8 @@ img {
         padding: 0.6rem 0;
         width: 100%;
         border-bottom: 1px solid var(--border-color);
+        padding-left: 0;
+        text-align: center;
     }
 
     .nav-menu a:last-child {
@@ -1723,6 +1769,9 @@ img {
     .philosophy-block img,
     .approach-item img {
         width: 100%;
+        max-height: 100%;
+        height: auto;
+        object-fit: contain;
         margin-bottom: 1rem;
     }
 
@@ -2034,7 +2083,10 @@ img {
     .pillar-card img,
     .feature-item img {
         max-width: 100%;
+        max-height: 100%;
+        width: 100%;
         height: auto;
+        object-fit: contain;
         margin: 0 auto 1rem;
     }
 

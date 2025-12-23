@@ -8,8 +8,8 @@
 require_once __DIR__ . '/email-config.php';
 require_once __DIR__ . '/smtp-mail.php';
 
-// Set the recipient email address from config
-$to_email = RECIPIENT_EMAIL;
+// Set the recipient email address - always send to aster.grouphome@outlook.com
+$to_email = "aster.grouphome@outlook.com";
 $to_name = "Aster Group Home";
 
 // Check if form was submitted via POST
@@ -187,19 +187,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($mail_sent) {
             header("Location: environment.html?success=1");
         } else {
-            // File saved but email didn't send
-            $error_note = "Form submitted successfully and saved. ";
-            if (!SMTP_ENABLED || empty(SMTP_PASSWORD)) {
-                $error_note .= "Email not sent - SMTP is not configured. Please run setup-email.bat to enable email sending.";
-            } else {
-                $error_note .= "Email sending failed. Please check your SMTP configuration or contact support at (240) 833-8151.";
-            }
-            header("Location: environment.html?success=1&note=" . urlencode($error_note));
+            // File saved but email didn't send - prompt user to call
+            $error_message = "Your form has been saved, but we couldn't send it via email at this time. Please call us directly at (240) 833-8151 to complete your admission process. We apologize for any inconvenience.";
+            header("Location: environment.html?error=" . urlencode($error_message));
         }
         exit;
     } else {
         // Error saving file
-        header("Location: environment.html?error=" . urlencode("Sorry, there was an error saving your admission form. Please try calling us at (240) 833-8151."));
+        $error_message = "We're sorry, but there was an error processing your admission form. Please call us directly at (240) 833-8151 or email us at aster.grouphome@outlook.com. We apologize for any inconvenience.";
+        header("Location: environment.html?error=" . urlencode($error_message));
         exit;
     }
     
@@ -209,6 +205,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
+
+
+
 
 
 

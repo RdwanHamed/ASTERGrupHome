@@ -234,8 +234,8 @@
     <section class="content-section">
         <div class="container">
             <div class="admission-form-container">
-                <h1 class="admission-form-title">Admission Form</h1>
-                <p class="admission-form-description">This form collects personal, medical, and legal information required for admission to the facility.</p>
+                <h1 style="font-size: 3rem; margin-bottom: 1.5rem; color: var(--primary-dark); text-align: center;">Admission Form</h1>
+                <p class="admission-form-description" style="text-align: center; margin-bottom: 2rem;">This form collects personal, medical, and legal information required for admission to the facility.</p>
                 
                 <!-- Success/Error Messages -->
                 <div id="form-message" class="form-message" style="display: none;"></div>
@@ -503,6 +503,30 @@
                         menuToggle.classList.remove('active');
                     });
                 });
+            }
+            
+            
+            // Handle success/error messages from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const formMessage = document.getElementById('form-message');
+            
+            if (urlParams.get('success') === '1') {
+                if (formMessage) {
+                    formMessage.className = 'form-message form-message-success';
+                    formMessage.innerHTML = '<strong>Thank you!</strong> Your admission form has been submitted successfully. We\'ll review it and contact you soon.';
+                    formMessage.style.display = 'block';
+                    // Scroll to message
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            } else if (urlParams.get('error')) {
+                const errorMsg = decodeURIComponent(urlParams.get('error'));
+                if (formMessage) {
+                    formMessage.className = 'form-message form-message-error';
+                    formMessage.innerHTML = '<strong>Error:</strong> ' + errorMsg;
+                    formMessage.style.display = 'block';
+                    // Scroll to message
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
             }
         });
     </script>

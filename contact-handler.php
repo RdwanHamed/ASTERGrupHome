@@ -4,6 +4,10 @@
  * Sends form submissions to aster.grouphome@outlook.com
  */
 
+// Load email configuration and SMTP functions
+require_once __DIR__ . '/email-config.php';
+require_once __DIR__ . '/smtp-mail.php';
+
 // Set the recipient email address
 $to_email = "aster.grouphome@outlook.com";
 $to_name = "Aster Group Home";
@@ -70,22 +74,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_body .= "This message was sent from the Aster Group Home contact form.\n";
     $email_body .= "Submitted on: " . date('F j, Y, g:i a') . "\n";
     
-    // Email headers
-    $headers = "From: " . $name . " <" . $email . ">\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    // Try to send email using SMTP first, then fallback to PHP mail()
+    $mail_sent = false;
     
-    // Send email
-    $mail_sent = mail($to_email, $email_subject, $email_body, $headers);
+    if (defined('SMTP_ENABLED') && SMTP_ENABLED && !empty(SMTP_PASSWORD)) {
+        // Use SMTP to send email
+        $mail_sent = sendSMTPEmail(
+            $to_email,
+            $email_subject,
+            $email_body,
+            defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : $email,
+            defined('SMTP_FROM_NAME') ? SMTP_FROM_NAME : $name,
+            defined('SMTP_USERNAME') ? SMTP_USERNAME : $email,
+            SMTP_PASSWORD
+        );
+        
+        // Log SMTP result for debugging
+        if (!$mail_sent) {
+            error_log("SMTP email sending failed for contact form from: $email");
+        }
+    }
+    
+    // Fallback to PHP mail() if SMTP failed or not configured
+    if (!$mail_sent) {
+        $headers = "From: " . $name . " <" . $email . ">\r\n";
+        $headers .= "Reply-To: " . $email . "\r\n";
+        $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        
+        $mail_sent = @mail($to_email, $email_subject, $email_body, $headers);
+    }
     
     if ($mail_sent) {
-        // Success - redirect to thank you page or contact page with success message
+        // Success - redirect to contact page with success message
         header("Location: contact.html?success=1");
         exit;
     } else {
-        // Error sending email
-        header("Location: contact.html?error=" . urlencode("Sorry, there was an error sending your message. Please try calling us at (240) 833-8151."));
+        // Error sending email - prompt user to call
+        $error_message = "We're sorry, but we couldn't send your message at this time. Please call us directly at (240) 833-8151 or email us at aster.grouphome@outlook.com. We apologize for any inconvenience.";
+        header("Location: contact.html?error=" . urlencode($error_message));
         exit;
     }
     
@@ -95,6 +122,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
+
+
 
 
 

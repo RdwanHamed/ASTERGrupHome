@@ -8,8 +8,8 @@
 require_once __DIR__ . '/email-config.php';
 require_once __DIR__ . '/smtp-mail.php';
 
-// Set the recipient email address - always send to aster.grouphome@outlook.com
-$to_email = "aster.grouphome@outlook.com";
+// Set the recipient email address - always send to astergroup.home@outlook.com
+$to_email = "astergroup.home@outlook.com";
 $to_name = "Aster Group Home";
 
 // Check if form was submitted via POST
@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         // Error saving file
-        $error_message = "We're sorry, but there was an error processing your admission form. Please call us directly at (240) 833-8151 or email us at aster.grouphome@outlook.com. We apologize for any inconvenience.";
+        $error_message = "We're sorry, but there was an error processing your admission form. Please call us directly at (240) 833-8151 or email us at astergroup.home@outlook.com. We apologize for any inconvenience.";
         header("Location: environment.html?error=" . urlencode($error_message));
         exit;
     }

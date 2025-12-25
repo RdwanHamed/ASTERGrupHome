@@ -1,7 +1,7 @@
 <?php
 /**
  * Contact Form Handler for Aster Group Home
- * Sends form submissions to aster.grouphome@outlook.com
+ * Sends form submissions to astergroup.home@outlook.com
  */
 
 // Load email configuration and SMTP functions
@@ -9,7 +9,7 @@ require_once __DIR__ . '/email-config.php';
 require_once __DIR__ . '/smtp-mail.php';
 
 // Set the recipient email address
-$to_email = "aster.grouphome@outlook.com";
+$to_email = "astergroup.home@outlook.com";
 $to_name = "Aster Group Home";
 
 // Check if form was submitted via POST
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         // Error sending email - prompt user to call
-        $error_message = "We're sorry, but we couldn't send your message at this time. Please call us directly at (240) 833-8151 or email us at aster.grouphome@outlook.com. We apologize for any inconvenience.";
+        $error_message = "We're sorry, but we couldn't send your message at this time. Please call us directly at (240) 833-8151 or email us at astergroup.home@outlook.com. We apologize for any inconvenience.";
         header("Location: contact.html?error=" . urlencode($error_message));
         exit;
     }

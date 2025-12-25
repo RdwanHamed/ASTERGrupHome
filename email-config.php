@@ -10,8 +10,8 @@
  */
 
 // Recipient email (where form submissions will be sent)
-// Always send to aster.grouphome@outlook.com
-define('RECIPIENT_EMAIL', 'aster.grouphome@outlook.com');
+// Always send to astergroup.home@outlook.com
+define('RECIPIENT_EMAIL', 'astergroup.home@outlook.com');
 
 // Gmail SMTP Configuration (for sending emails)
 define('SMTP_ENABLED', true);
@@ -19,6 +19,7 @@ define('SMTP_USERNAME', 'wiruqoleqec072@gmail.com');
 define('SMTP_PASSWORD', 'RDWAN12345678901');
 define('SMTP_FROM_EMAIL', 'wiruqoleqec072@gmail.com');
 define('SMTP_FROM_NAME', 'Aster Group Home');
+
 
 
 
